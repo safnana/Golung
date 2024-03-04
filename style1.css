@@ -1,0 +1,36 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.body-start {
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.start {
+  text-align: center;
+  padding-top: 35%;
+}
+
+.start button {
+  background-color: burlywood;
+  font-weight: bold;
+  border-color: brown;
+  border-radius: 10px;
+  height: 40px;
+  width: 120px;
+  font-size: 20px;
+  font-family: monospace;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+a{
+    text-decoration: none;
+    color: brown;
+}
+a:hover{
+    color: beige;
+}
+
