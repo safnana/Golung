@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style1.css" type="text/css" />
+    <title>Golung-Story</title>
+    <style>
+      .dialog {
+        position: relative;
+        background-color: burlywood;
+        border: 4px solid brown;
+        padding: 20px;
+        border-radius: 12px;
+        width: 500px;
+        justify-items: center;
+        margin-left: 30%;
+        margin-top: 20px;
+      }
+
+      .karakter img {
+        padding-inline: 180px;
+        position: relative;
+      }
+      .karakter{
+        position: absolute;
+        margin-top:30%
+      }
+      #speaker-dialog {
+        font-weight: bolder;
+        font-size: 20px;
+        color: brown;
+      }
+
+      #isi-dialog {
+        font-weight: 700;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
+      .button-container {
+        text-align: right;
+        margin-top: 10px;
+      }
+
+      button {
+        background-color: brown;
+        color: burlywood;
+        width: 80px;
+        height: 30px;
+      }
+    </style>
+  </head>
+  <body class="body-start" style="background-image: url(assets/home.jpg)">
+    <div class="karakter">
+      <img src="assets/erika.png" width="200px" />
+      <img src="assets/owen.png" width="200px" />
+    </div>
+    <div class="dialog">
+      <div id="speaker-dialog">
+        <p></p>
+      </div>
+      <div id="isi-dialog">
+        <p id="dialogText">
+          Pada suatu hari yang cerah di Indonesia Land, Owen menenemui Erika di
+          rumahnya untuk memenuhi panggilannya kemarin hari...
+        </p>
+      </div>
+      <div class="button-container">
+        <button onclick="lanjutdialog()">Next</button>
+      </div>
+    </div>
+    <script>
+      var dialogIndex = 0;
+      var dialog = [
+        "Halo Owen!",
+        "Halo juga Erika!",
+        "Saya memiliki permohonan sebuah misi untukmu.",
+        "Permohonan apa itu?",
+        "Misi ini sangat penting. Apakah kamu bersedia?",
+        "Tentu saja aku bersedia! Jadi, misi apa?",
+        "Akhir-akhir ini banyak sekali sampah berserakan di Indonesia Land. Aku ingin memberikan misi kepadamu untuk membersihkan dan mengolah sampah di seluruh pulau sesuai dengan jenisnya.",
+        "Baiklah aku paham! Aku akan menyelamatkan Indonesia Land dari sampah! Aku Siap!",
+        "Hahahaha kau sangat lucu Owen! Terima kasih, semangat Owen!",
+        "Tentu saja!",
+      ];
+
+      var speaker = [
+        "Erika",
+        "Owen",
+        "Erika",
+        "Owen",
+        "Erika",
+        "Owen",
+        "Erika",
+        "Owen",
+        "Erika",
+        "Owen",
+      ];
+
+      var dialogElement = document.getElementById("isi-dialog");
+      var speakerElement = document.getElementById("speaker-dialog");
+      function lanjutdialog() {
+        if (dialogIndex < dialog.length && dialogIndex < speaker.length) {
+          dialogElement.textContent = dialog[dialogIndex];
+          speakerElement.textContent = speaker[dialogIndex];
+          dialogIndex++;
+        } else {
+          window.location.href = "level1.html";
+        }
+      }
+    </script>
+  </body>
+</html>
