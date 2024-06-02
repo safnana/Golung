@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golung</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+<body>
+    <div id="canvasContainer">
+        <canvas id="canvas" width="1200" height="675" style="background-image: url(assets/background/plot.jpg);"></canvas>
+        <div class="karakter">
+            <img src="assets/character/erika.png" width="200px" style="padding-left: 100px;" />
+            <img src="assets/character/owen.png" width="200px" style="padding-left: 300px;" />
+          </div>
+          <div class="dialog">
+            <div id="speaker-dialog">
+              <p></p>
+            </div>
+            <div id="isi-dialog" style="padding-top: 8px;">
+              <p>
+                Pada suatu hari yang cerah di Indonesia Land, Owen menenemui Erika di
+                rumahnya untuk memenuhi panggilannya kemarin hari...
+              </p>
+            </div>
+              <button onclick="lanjutdialog()" style="margin-top: 10px; background-color: brown; color: beige;">Next</button>
+    </div>
+    <audio autoplay loop>
+      <source src="assets/sound/bs_plot.mp3" type="audio/mpeg">
+    </audio>
+      <script>
+        var canvas = document.getElementById("canvas");
+        var dialogIndex = 0;
+      var dialog = [
+        "Halo Owen!",
+        "Halo juga Erika!",
+        "Saya memiliki permohonan sebuah misi untukmu.",
+        "Permohonan apa itu?",
+        "Misi ini sangat penting. Apakah kamu bersedia?",
+        "Tentu saja aku bersedia! Jadi, misi apa?",
+        "Akhir-akhir ini banyak sekali sampah berserakan di Indonesia Land. Aku ingin memberikan misi kepadamu untuk membersihkan dan mengolah sampah di seluruh pulau sesuai dengan jenisnya.",
+        "Baiklah aku paham! Aku akan menyelamatkan Indonesia Land dari sampah! Aku Siap!",
+        "Hahahaha kau sangat lucu Owen! Terima kasih, semangat Owen!",
+        "Tentu saja!",
+      ];
+
+      var speaker = [
+        "👱🏻‍♀️Erika",
+        "👦🏻Owen",
+        "👱🏻‍♀️Erika",
+        "👦🏻Owen",
+        "👱🏻‍♀️Erika",
+        "👦🏻Owen",
+        "👱🏻‍♀️Erika",
+        "👦🏻Owen",
+        "👱🏻‍♀️Erika",
+        "👦🏻Owen",
+      ];
+
+      var dialogElement = document.getElementById("isi-dialog");
+      var speakerElement = document.getElementById("speaker-dialog");
+      function lanjutdialog() {
+        if (dialogIndex < dialog.length && dialogIndex < speaker.length) {
+          dialogElement.textContent = dialog[dialogIndex];
+          speakerElement.textContent = speaker[dialogIndex];
+          dialogIndex++;
+        } else {
+          window.location.href = "sumatra.html";
+        }
+      }
+      </script>
+</body>
+</html>
