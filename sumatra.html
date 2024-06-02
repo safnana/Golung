@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Golung</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <style>
+      #canvasContainer {
+        position: relative;
+      }
+      .tong {
+        width: 100px;
+        height: 100px;
+        border: 2px solid black;
+        position: absolute;
+      }
+      #tong-organik {
+        left: 40%;
+        top: 60%;
+      }
+      #tong-anorganik {
+        left: 50%; 
+        top: 60%;
+      }
+      #score {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 24px;
+        font-weight: bolder;
+        color: brown;
+        font-family: verdana;
+        margin-right: 200px;
+      }
+      #timer {
+        position: absolute;
+        top: 20px;
+        font-size: 24px;
+        font-weight: bolder;
+        color: brown;
+        font-family: verdana;
+        margin-left: 200px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="canvasContainer">
+      <canvas id="canvas" width="1200" height="675" style="background-image: url(assets/background/level1.jpg);"></canvas>
+      <div class="tong" id="tong-organik" ondrop="drop(event, 'organik')" ondragover="allowDrop(event)"></div>
+      <div class="tong" id="tong-anorganik" ondrop="drop(event, 'anorganik')" ondragover="allowDrop(event)"></div>
+      <img id="organik1" class="organik sampah" draggable="true" ondragstart="drag(event)" src="" style="width: 60px; height: 60px;">
+      <img id="organik2" class="organik sampah" draggable="true" ondragstart="drag(event)" src="" style="width: 60px; height: 60px;">
+      <img id="anorganik" class="anorganik sampah" draggable="true" ondragstart="drag(event)" src="" style="width: 60px; height: 60px;">
+      <p id="score" style="font-weight: bolder; color: brown; font-family:Verdana; margin-right: 200px;">Poin: 0</p>
+      <p id="timer">Waktu: 10</p>
+      <audio autoplay loop>
+        <source src="assets/sound/bs_sumatra.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <script>
+      const poinPerSampah = 10;
+      let score = 0;
+      let waktu = 10;
+      let isGameOver = false;
+      const scoreDisplay = document.getElementById("score");
+      const timerDisplay = document.getElementById("timer");
+      const benar = new Audio("assets/sound/bs_correct.mp3");
+      const salah = new Audio ("assets/sound/bs_wrong.mp3");
+
+      function PlayAudio(audio) {
+        audio.currentTime = 0;
+        audio.play();
+    }
+
+      const timerInterval = setInterval(() => {
+        if (!isGameOver) {
+          waktu--;
+          timerDisplay.textContent = `Waktu: ${waktu}`;
+          if (waktu === 0) {
+            clearInterval(timerInterval);
+            gameOver();
+          }
+        }
+      }, 1000);
+
+      function gameOver() {
+        alert("Waktu Habis! Game Over. Mulai ulang permainan.");
+        setTimeout(() => {
+        window.location.href = "welcome.html";
+    }, 1000);
+        
+      }
+
+      function getRandomImage(folder, jenis) {
+        let images;
+        if (jenis === 'organik') {
+          images = ["apel.png", "daun.png", "pisang.png", "tulang.png"];
+        } else if (jenis === 'anorganik') {
+          images = ["botol.png", "kaleng.png", "plastik.png", "sedotan.png"];
+        }
+        const randomIndex = Math.floor(Math.random() * images.length);
+        return `${folder}/${images[randomIndex]}`;
+      }
+  
+      function spawnSampah(elementId, folder, left, top, jenis) {
+        const sampah = document.getElementById(elementId);
+        sampah.src = getRandomImage(folder, jenis);
+        sampah.style.position = "absolute";
+        sampah.style.width = "60px";
+        sampah.style.height = "60px";
+        sampah.style.left = left + "px";
+        sampah.style.top = top + "px";
+      }
+  
+      function allowDrop(ev) {
+        ev.preventDefault();
+      }
+  
+      function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+      }
+  
+      function drop(ev, jenisSampah) {
+        ev.preventDefault();
+        if (isGameOver) return; 
+  
+        const data = ev.dataTransfer.getData("text");
+        const draggedElement = document.getElementById(data);
+        const tongId = `tong-${jenisSampah}`;
+  
+        if (ev.target.id === tongId) {
+          const sampahClass = draggedElement.classList.contains('organik') ? 'organik' : 'anorganik';
+          if (tongId === 'tong-' + sampahClass) {
+            PlayAudio(benar);
+            score += poinPerSampah;
+            scoreDisplay.textContent = `Poin: ${score}`;
+            draggedElement.style.display = "none";
+           
+            if (score === 30) {
+              isGameOver = true; 
+              clearInterval(timerInterval); 
+              alert("Selamat! Anda berhasil memasukkan semua sampah. Menuju ke pulau selanjutnya!");
+              setTimeout(() => {
+        window.location.href = "jawa.html";
+    }, 1000);
+            }
+          } else {
+            PlayAudio(salah);
+            alert("Sampah salah dimasukkan!");
+          }
+        }
+      }
+  
+      const spawnLocations = [
+        { left: Math.floor(Math.random() * 1000), top: Math.floor(window.innerHeight * 0.58) },
+        { left: Math.floor(Math.random() * 1000), top: Math.floor(window.innerHeight * 0.9) },
+        { left: Math.floor(Math.random() * 100), top: Math.floor(window.innerHeight * 0.8) }
+      ];
+      spawnSampah("organik1", "assets/Organik", spawnLocations[0].left, spawnLocations[0].top, 'organik');
+      spawnSampah("organik2", "assets/Organik", spawnLocations[1].left, spawnLocations[1].top, 'organik');
+      spawnSampah("anorganik", "assets/Anorganik", spawnLocations[2].left, spawnLocations[2].top, 'anorganik');
+    </script>
+  </body>
+  </html>
