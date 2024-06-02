@@ -1,0 +1,100 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; 
+    font-family: Arial, sans-serif;
+    position: relative; 
+  }
+  #canvasContainer {
+    position: relative;
+    width: 1275px;
+    height: 709px;
+    margin: 0 auto; 
+  }
+  canvas {
+    display: block;
+    border: 1px solid black;
+    margin: 0;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+  }
+  #buttonStart {
+    position: absolute;
+    top: 70%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    font-size: 20px;
+    background-color: burlywood;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 40px;
+    width: 120px;
+  }
+  #congrats {
+    position: absolute;
+    top: 10%; 
+    left: 35%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    font-size: 70px;
+    color: #Ffd700;
+    font-weight: bolder;
+    height: 40px;
+    width: 120px;
+    font-family: Dancing Script;
+  }
+  a {
+    text-decoration: none;
+    color: brown;
+  }
+  a:hover {
+    color: beige;
+  }
+  .karakter {
+    position: absolute;
+    top: 60%; 
+    left: 50px;
+    z-index: 2;
+}
+
+.dialog {
+  position: absolute;
+  top: 10%;
+  left:80px;
+  right: 80px;
+  z-index:2;
+  background-color: burlywood;
+  border: 3px solid brown;
+  padding: 10px;
+  border-radius: 20px;
+  font-family: monospace;
+  font-size: 16px;
+}
+.tong{
+  width: 100px;
+  height: 100px;
+  margin: auto;
+  cursor: pointer;
+  position: absolute;
+  bottom: 10px;
+}
+#tong-organik {
+  background-image: url(assets/tong/tong-organik.png);
+  background-size: cover;
+  left: calc(50% - 50px);
+}
+
+#tong-anorganik {
+  background-image: url(assets/tong/tong-anorganik.png );
+  background-size: cover;
+  left: calc(50% + 50px); 
+}
